@@ -154,6 +154,53 @@ Promise.prototype.then = function (onFulfilled, onRejected) {
     return promise2;
 }
 
+Promise.prototype.catch = function (callback) {
+    return this.then(null, callback);
+}
+//解析全部的参数；
+Promise.all = function (promises) {
+    // promises是数组；
+    return new Promise(function (rsolve, reject) {
+        let arr = []; //arr是最终返回值的结果；
+        let indexFlag = 0;
+
+        function processData(params) {
+            arr[index] = y;
+            if (++indexFlag === promises.length) {
+                resolve(arr);
+            }
+        }
+        for (let i = 0; i < promises.length; i++) {
+            promises[i].then(function (y) {
+                processData(i, y);
+            }, function (err) {
+                reject(err)
+            })
+        }
+    })
+}
+
+// 如果有一个成功就算成功，一个失败就算失败；
+Promise.race = function (promises) {
+    return new Promise(function (resolve, reject) {
+        for (let i = 0; i < promises.length; i++) {
+            promises[i].then(resolve, reject);
+        }
+    })
+}
+// 生成一个成功的Promise
+Promise.resolve = function (value) {
+    return new Promise(function (resolve, rejcet) {
+        resolve(vlaue);
+    })
+}
+// 生成一个失败的Promise
+Promise.reject = function (reason) {
+    return new Promise(function (resolve, rejcet) {
+        reject(reason);
+    })
+}
+// 减少read中promise的嵌套；不需要返回一个new Promise
 Promise.defer = Promise.deferred = function () {
     let dfd = {};
     dfd.promise = new Promise(function (resolve, rejcet) {

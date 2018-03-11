@@ -1,29 +1,29 @@
 let Promise = require('./Promise');
-let p = new Promise(function (resolve, reject) {
-    // resolve(100);
-    // reject(100);
+// let p = new Promise(function (resolve, reject) {
+// resolve(100);
+// reject(100);
 
-    // setTimeout(() => {
-    //     resolve(100);
-    // }, 1000);
+// setTimeout(() => {
+//     resolve(100);
+// }, 1000);
 
-    // throw new Error("throw a new error");
+// throw new Error("throw a new error");
 
-    // 链式调用；
-    // resolve('8888');
-    reject('8888');
-})
-p.then(function (data) {
-    console.log("success", data);
-}, function (error) {
-    // throw new Error("rrrr");
-    console.log("1");
-    return 'success';
-}).then(function (data) {
-    console.log("success", data);
-}, function (error) {
-    console.log("error", error);
-})
+// 链式调用；
+// resolve('8888');
+//     reject('8888');
+// })
+// p.then(function (data) {
+//     console.log("success", data);
+// }, function (error) {
+//     // throw new Error("rrrr");
+//     console.log("1");
+//     return 'success';
+// }).then(function (data) {
+//     console.log("success", data);
+// }, function (error) {
+//     console.log("error", error);
+// })
 
 // 1.promise实例可以多次then;当成功后会将then中的成功方法按顺序执行；
 // 我们可以先将then中成功的、失败的回调，存在两个数组中；
@@ -71,21 +71,18 @@ p.then(function (data) {
 // 8.有些人写的promise可能既调用成功，又调用失败；如果两个都调用，先调用谁，另一个就忽略掉；
 
 // 9.值的穿透；
-p.then().then().then(function (resolve, rejcet) {
+// p.then().then().then(function (resolve, rejcet) {
 
-});
+// });
 
 // 10.规范中，所有的onFulfilled和onRejected都需要异步执行，setTimeout
 
-
-
-// 11. 下载一个Promise的测试库，promise-aplus-tests
-// npm install promise-aplus-tests -g 
+// 11. 下载一个Promise的测试库，promises-aplus-tests
+// npm install promises-aplus-tests -g 
 // 命令行测试工具命令： promise-aplus-tests  fileName 
 
 // let Promise = require('./Promise');
 // function read() {
-
 //     let defer = Promise.defer();
 //     require('./2.promise/1.txt', 'utf8', function (err, data) {
 //         if (err) {
@@ -101,3 +98,37 @@ p.then().then().then(function (resolve, rejcet) {
 // },function(error){
 
 // })
+
+
+//  catch 
+// let promise = new Promise(function (resolve, reject) {
+//     reject('error');
+// })
+// promise.then(function () {
+
+// }).catch(e => {
+//     console.log(e);
+// })
+
+
+
+function read(url) {
+    return new Promise(function (resolve, reject) {
+        require(url, 'utf8', function (err, data) {
+            if (err) {
+                reject(err);
+            }
+            resolve(data);
+        });
+    })
+}
+
+// all 
+Promise.all([read('./2.promise/1.txt'), read('./2.promise/2.txt')]).then(function (data) {
+    console.log(data);
+})
+
+// race 赛跑；
+Promise.race([read('./2.promise/1.txt'), read('./2.promise/2.txt')]).then(function (data) {
+    console.log(data);
+})

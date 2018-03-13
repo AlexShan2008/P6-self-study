@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        // let worker = new Worker("./worker.js");
+
+        // worker.postMessage(100);
+
+        // worker.onmessage = function (e) {
+        //     console.log(e);
+        // }
+
+        let observe = new MutationObserver(function (params) {
+            console.log("SUCCESS");
+        });
+        observe.observe(app, {
+            childList: true
+        })
+        for (var i = 0; i < 100; i++) {
+            let p = document.createElement("p");
+            document.body.appendChild(p);
+        }
+
+        console.log(1);
+
+        let channel = new MessageChannel();
+        let port1 = channel.port1;
+        let port2 = channel.port2;
+        port1.onmessage = function (e) {
+            console.log(e);
+        }
+        console.log(2);
+        port1.postMessage(100);
+        console.log(3);
+
+
+        //浏览器和Node.js中宏、微任务执行顺序不同；
+
+        console.log(1);
+        setTimeout(() => {
+            console.log(2);
+            Promise.reject(1).then(function (params) {
+                console.log("promise");
+            })
+        }, 0);
+        setTimeout(() => {
+            console.log(3);
+        }, 0);
+
+        //浏览器输出结果： 1 2 promise 3
+        //Node.js输出结果： 1 2 3 promise
+
+    </script>
+</body>
+
+</html>

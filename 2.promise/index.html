@@ -10,10 +10,10 @@
         .container .ball {
             width: 100px;
             height: 100px;
-            background-color: blue;
+            background: red;
             border-radius: 50%;
             position: absolute;
-            left: 0;
+            left: 0
         }
 
         .container .ball:nth-child(1) {
@@ -21,11 +21,11 @@
         }
 
         .container .ball:nth-child(2) {
-            top: 50px;
+            top: 140px;
         }
 
         .container .ball:nth-child(3) {
-            top: 100px;
+            top: 260px;
         }
     </style>
 </head>
@@ -36,12 +36,9 @@
         <div class="ball"></div>
         <div class="ball"></div>
     </div>
-    <!-- <script src="Promise.js"></script> -->
-    <script>
+    <script>    
         let ball = document.querySelectorAll('.ball');
         let [ball1, ball2, ball3] = [...ball];
-
-        // 1.回调函数处理；
         function move(ele, target, callback) {
             return new Promise(function (resolve, reject) {
                 let left = parseInt(getComputedStyle(ele)['left']);
@@ -56,38 +53,56 @@
                 }, 4)
             })
         }
+        // async+ await
+        // async function a() {
+        //     await move(ball1, 400);
+        //     await move(ball2, 400);
+        //     await move(ball3, 400);
+        // }
+        // a().then(function () {
+        //     alert('完成')
+        // })
+        // generator的实现
+        function* m() {
+            yield move(ball1, 400);
+            yield move(ball2, 400);
+            yield move(ball3, 400);
+        }
+        function co(it) {
+            return new Promise(function (resolve, reject) {
+                function next(d) {
+                    let { value, done } = it.next(d);
+                    if (!done) {
+                        value.then(function (data) { // 2,txt
+                            next(data)
+                        }, reject)
+                    } else {
+                        resolve(value);
+                    }
+                }
+                next();
+            });
+        }
+        co(m()).then(function(){
+            alert('ok')
+        })
+        // promise实现
+        // move(ball1, 400).then(function () {
+        //     return move(ball2, 400)
+        // }).then(function () {
+        //     return move(ball3, 400)
+        // }).then(function () {
+        //     alert('成功')
+        // })
+
+        // 回调函数处理
         // move(ball1, 400, function () {
         //     move(ball2, 400, function () {
-        //         move(ball3, 400);
+        //         move(ball3, 400, function () {
+        //             alert('结束了')
+        //         })
         //     })
         // })
-
-        // 2.promise
-        // move(ball1, 400).then(function () {
-        //     return move(ball2, 400);
-        // }).then(function () {
-        //     return move(ball3, 400);
-        // }).then(function () {
-        //     alert('promise')
-        // })
-
-        // 3.
-        // function* m(ele) {
-        //     yiled move(ball1, 400);
-        //     yiled move(ball2, 400);
-        //     yiled move(ball3, 400);
-        // }
-        // m()
-
-        // 4.async/await
-        async function a() {
-            await move(ball1, 400);
-            await move(ball2, 400);
-            await move(ball3, 400);
-        }
-        a().then(function () {
-            alert('完成')
-        })
 
     </script>
 </body>

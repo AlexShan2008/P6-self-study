@@ -8,6 +8,10 @@ function Promise(executor) {
     self.onResolvedCallbacks = [];//存放成功回调；
     self.onRejectedCallbacks = [];//存放失败回调；
     function resolve(value) {
+        // value可能是别人的Promise；
+        if (value !== null && (typeof value === 'object' || typeof value === 'function')) {
+            return value.then(resolve, reject);
+        }
         // 成功状态；
         if (self.status === 'pending') {
             self.status = 'resolved';
@@ -85,6 +89,7 @@ function resolvePromise(promise2, x, resolve, reject) {
 
 }
 Promise.prototype.then = function (onFulfilled, onRejected) {
+    // let p = p1.then().then().then(); 值穿透，当then中不传值的时候正常处理；
     onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : function (value) {
         return value;
     };

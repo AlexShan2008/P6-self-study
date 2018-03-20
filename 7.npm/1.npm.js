@@ -46,3 +46,17 @@
 // npm install nrm -g
 // nrm use taobao
 // 
+
+
+// 全局安装
+// 发布包
+// 通过命令行来实现
+// 创建NPM账号
+// npm adduser 如果有就登录，没有就注册
+// 账号只能在官方登录  npm环境下安装 
+// 包一定要有package.json
+// name 一定要唯一
+// 舒服用户名  邮箱和邮箱密码
+// npm publish  发布包
+// npm unpublish  删除发布包
+

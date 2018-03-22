@@ -35,7 +35,7 @@ let path = require("path");
 let buffer = Buffer.alloc(3);
 
 fs.open(path.join(__dirname, "1.txt"), "r", 0o666, function (err, fd) {
-    console.log(fd);//3
+    console.log(fd);//3 1标准输出 2错误输出
     // offset 表示的是buffer从哪个开始存储；
     // length 3 一次读3个，不能大于buffer数量；代表想读的个数；
     // length不能大于Buffer的长度；

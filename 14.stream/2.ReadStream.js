@@ -36,6 +36,17 @@ class ReadStream extends EventEmitter {
     pause() {
         this.flowing = false;
     }
+    pipe(ws){
+        this.on('data', (chunk)=>{
+            let flag = ws.write(chunk);
+            if(!flag){
+                this.pause();
+            }
+        });
+        ws.on('drain',()=>{
+            this.resume();
+        })
+    }
     resume() {
         this.flowing = ture;
         this.read();

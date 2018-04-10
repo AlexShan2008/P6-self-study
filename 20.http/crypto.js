@@ -100,3 +100,8 @@ v.update(str);
 let res = v.verify(public,signed,'hex');
 console.log(res) //true
 // ctime+文件大小进行签名（大文件时候）
+
+
+// 对比缓存
+
+// 强制缓存

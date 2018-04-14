@@ -1,5 +1,5 @@
 {
-  "name": "23.static",
+  "name": "sta-server",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,8 +9,5 @@
     "ejs": "^2.5.8",
     "mime": "^2.3.1",
     "supervisor": "^0.12.0"
-  },
-  "devDependencies": {
-    "get-caller-file": "^1.0.2"
   }
 }

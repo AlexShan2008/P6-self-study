@@ -1,3 +1,5 @@
+// 供ajax请求使用；
+
 let apiMap = {
     '/api/user': {
         name: 'geeknull',

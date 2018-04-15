@@ -5,6 +5,7 @@ const serve = require('koa-static');
 const cors = require('kcors');
 const sleep = require('./middleware/sleep');
 const api = require('./middleware/api');
+const sourceMap = require('./middleware/sourceMap');
 const path = require('path');
 
 app.use(cors());

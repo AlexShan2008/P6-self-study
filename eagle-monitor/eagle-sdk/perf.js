@@ -1,13 +1,11 @@
 // https://developer.mozilla.org/zh-CN/docs/Web/API/PerformanceTiming
-
+// 数据收集
 let perf = {
     init: (cb) => {
         let cycleFreq = 100; // 循环轮询的时间
         let isDOMReady = false;
         let isOnload = false;
         let performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance;
-
-        console.log(999999)
 
         let Util = {
             addEventListener: function (name, callback, useCapture) {

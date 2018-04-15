@@ -1,20 +1,29 @@
-## 创建一个静态服务器  发布到npm上面 
+## Static Server
 
-> npm link
-> http-server -p 3000 
-> --help
+### Development
 
-> yargs 包 用来处理命令行的参数 process.argv 
+Checkout this repository locally, then:
+
+1. install dependencies
+```sh
+$ cd server-s 
+$ yarn i
 ```
-yarn add yargs 
+2. start server
 
-> 处理  
-#!
-> 注意，项目中所有的依赖都是上线依赖；@1.0.1
+```sh
+$ cd target folder
 
-> 发包到Npm 
-> 1. npm 上没有相关的包；
-> 2. 切换源到npm源，非cnpm
-> 3. npm publish 发布到线上
-> 4. npm install sg-server -g
-> 4. npm update sg-server
+$ server-s -p
+```
+3.  *Then you can visit http://localhost:8080 to view your static server*
+
+4. common command-line 
+```
+ --version       Show version number                                   [boolean]
+  -p, --port      server port                                    [default: 8080]
+  -o, --hostname  host                                    [default: "localhost"]
+  -d, --dir       exec directory                   [default: "C:\Users\ShanGuo"]
+  -h, --help      Show help                                            [boolean]
+
+```

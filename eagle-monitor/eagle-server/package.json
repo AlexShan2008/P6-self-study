@@ -1,0 +1,14 @@
+{
+  "name": "eagle-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "koa": "^2.5.0",
+    "nodemon": "^1.17.3",
+    "source-map": "^0.7.2"
+  }
+}

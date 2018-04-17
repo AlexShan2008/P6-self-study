@@ -6,15 +6,15 @@ Checkout this repository locally, then:
 
 1. install dependencies
 ```sh
-$ cd server-s 
-$ yarn i
+$ cd target folder 
+$ yarn install server-st -D
 ```
 2. start server
 
 ```sh
 $ cd target folder
 
-$ server-s -p
+$ server-st -p
 ```
 3.  *Then you can visit http://localhost:8080 to view your static server*
 

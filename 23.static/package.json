@@ -1,7 +1,7 @@
 {
-  "name": "server-s",
-  "version": "1.0.0",
-  "main": "./lib/server-s.js",
+  "name": "server-st",
+  "version": "1.0.2",
+  "main": "./lib/server-st.js",
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,7 @@
     "url": "http://alexshan.com"
   },
   "bin": {
-    "server-s": "./bin/server-s.js"
+    "server-st": "./bin/server-st.js"
   },
   "dependencies": {
     "chalk": "^2.3.2",

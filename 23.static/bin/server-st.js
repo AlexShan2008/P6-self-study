@@ -2,7 +2,7 @@
 
 let yargs = require('yargs');
 
-// server-s -p 8080
+// server-st -p 8080
 let argv = yargs.options('p', {
     alias: 'port',
     default: 8080, // default
@@ -21,12 +21,12 @@ let argv = yargs.options('p', {
     demand: false,
     type: String,
     description: 'exec directory'
-}).usage('usage server-s [options]')
+}).usage('usage server-st [options]')
     .alias('h', 'help')
-    .example('server-s --port 8080 ')
+    .example('server-st --port 8080 ')
     .argv
 
-let Server = require('../lib/server-s');
+let Server = require('../lib/server-st');
 let server = new Server(argv);
 server.start();
 

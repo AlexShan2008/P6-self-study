@@ -1,6 +1,6 @@
 {
   "name": "server-st",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./lib/server-st.js",
   "license": "MIT",
   "scripts": {

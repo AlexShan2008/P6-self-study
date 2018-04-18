@@ -3,7 +3,7 @@ let htmlWebpackPlugin = require('html-webpack-plugin');
 let cleanWebpackPlugin = require('clean-webpack-plugin');//删除上次打包的文件；
 let webpack = require('webpack');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
-let PurifyCss = require('purifycss-webpack');//去掉多余css
+let PurifyCss = require('purifycss-webpack');//去掉多余css，没有使用的css代码
 let Glob = require('glob');//搜索引用；
 
 module.exports = {
@@ -21,8 +21,18 @@ module.exports = {
   //对模块的处理
   module: {
     rules:[
-      {test:/\.css$/,use:ExtractTextPlugin.extract({use:'css-loader'})},
-      {test:/\.(scss|sass)$/,use:ExtractTextPlugin.extract({use:['style-loader','css-loader','postcss-loader','sass-loader']})}
+      {
+        test:/\.css$/,
+        use:ExtractTextPlugin.extract({
+          use:'css-loader'
+        })
+      },
+      {
+        test:/\.(scss|sass)$/,
+        use:ExtractTextPlugin.extract({
+          use:['style-loader','css-loader','postcss-loader','sass-loader']
+        })
+      }
       // {test:/\.(scss|sass)$/,use:['style-loader','css-loader','postcss-loader','sass-loader']}
     ]
   },

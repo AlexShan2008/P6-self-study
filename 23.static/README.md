@@ -1,24 +1,23 @@
-## Static Server
+# Static Server
 
-### Development
+##  Development
 
 Checkout this repository locally, then:
 
-### 1. install dependencies
+### 1. Installing Globally
 ```sh
-$ cd target folder 
-$ yarn install server-st -D
+$ npm i server-st -g
 ```
-### 2. start server
+### 2. Usage:  server-st [path] [options]:  $ server-st -p 3000 --open 
+
+> [path] defaults to ./public if the folder exists, and ./ otherwise.
 
 ```sh
-$ cd target folder
-
 $ server-st -p
 ```
 ### 3.  *Then you can visit http://localhost:8080 to view your static server*
 
-### 4. common command-line 
+### 4. Available Options:
 ```
  --version       Show version number                                   [boolean]
   -p, --port      server port                                    [default: 8080]

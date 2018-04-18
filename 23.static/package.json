@@ -1,11 +1,8 @@
 {
   "name": "server-st",
-  "version": "1.0.4",
+  "version": "1.0.8",
   "main": "./lib/server-st.js",
   "license": "MIT",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": {
     "name": "AlexShan",
     "email": "shantong.sir@gmail.com",
@@ -22,5 +19,5 @@
     "supervisor": "^0.12.0",
     "yargs": "^11.0.0"
   },
-  "description": "A simple command-line static http server"
+  "description": "A simple command-line static server"
 }

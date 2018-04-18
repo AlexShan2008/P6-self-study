@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 
+'use strict';
+
 let yargs = require('yargs');
 
 // server-st -p 8080
@@ -23,6 +25,7 @@ let argv = yargs.options('p', {
     description: 'exec directory'
 }).usage('usage server-st [options]')
     .alias('h', 'help')
+    .alias('v', 'version')
     .example('server-st --port 8080 ')
     .argv
 

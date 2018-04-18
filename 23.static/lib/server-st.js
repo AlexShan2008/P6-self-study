@@ -124,6 +124,11 @@ class Server {
     let { port, hostname } = this.confg;
     let server = http.createServer(this.handleRequest());
     let url = `http://${hostname}:${chalk.green(port)}`;
+
+    console.log(`${chalk.blue('Starting up server-st success!')}`);
+    console.log(`Now you can visit ${chalk.green(url)} to view your static server`);
+    console.log(`Hit CTRL - C to stop the server`);
+
     debug(url);
     server.listen(port, hostname);
   }

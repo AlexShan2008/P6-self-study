@@ -1,23 +1,20 @@
-# Static Server
+# server-st: a command-line static server
 
-##  Development
-
-Checkout this repository locally, then:
-
-### 1. Installing Globally
+## 1. Installing Globally
 ```sh
 $ npm i server-st -g
 ```
-### 2. Usage:  server-st [path] [options]:  $ server-st -p 3000 --open 
-
-> [path] defaults to ./public if the folder exists, and ./ otherwise.
-
+## 2. Usage:  server-st [options]: 
 ```sh
-$ server-st -p
+ $ cd TargetFolder 
+ $ server-st -p 3000 --open 
 ```
-### 3.  *Then you can visit http://localhost:8080 to view your static server*
+> `-p 3000` port number default: 8080 
+>  `--open` auto open browser
 
-### 4. Available Options:
+## 3.  *Then you can visit `TargetFolder contents`  in your browser*
+
+## 4. Available Options:
 ```
  --version       Show version number                                   [boolean]
   -p, --port      server port                                    [default: 8080]
@@ -26,3 +23,13 @@ $ server-st -p
   -h, --help      Show help                                            [boolean]
 
 ```
+
+#  Development
+
+Checkout this repository locally, then:
+```sh
+$ npm i
+$ node bin/server-st
+```
+
+*Then you can visit http://localhost:8080 to view your static server*

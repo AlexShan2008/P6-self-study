@@ -27,13 +27,13 @@ module.exports = {
           use:'css-loader'
         })
       },
-      {
-        test:/\.(scss|sass)$/,
-        use:ExtractTextPlugin.extract({
-          use:['style-loader','css-loader','postcss-loader','sass-loader']
-        })
-      }
-      // {test:/\.(scss|sass)$/,use:['style-loader','css-loader','postcss-loader','sass-loader']}
+      // {
+      //   test:/\.(scss|sass)$/,
+      //   use:ExtractTextPlugin.extract({
+      //     use:['style-loader','css-loader','postcss-loader','sass-loader']
+      //   })
+      // }
+      {test:/\.(scss|sass)$/,use:['style-loader','css-loader','postcss-loader','sass-loader']}
     ]
   },
   //对应的插件

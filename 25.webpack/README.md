@@ -182,8 +182,5 @@ yarn add postcss-loader autoprefixer -D
 ### 前端代码模块用ES6模块  import('./index.js')
 ### 后端代码用common.js   require('./index.js')
 
-## 去掉没有用到的css 
+## 去掉没有用到的css purifycss-webpack purify-css
 > yarn add purifycss-webpack purify-css -glob -D
-```
-
-```

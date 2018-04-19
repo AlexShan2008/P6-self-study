@@ -1,5 +1,5 @@
 let str = require('./a');
-import './common.sycss';
+import './common.scss';
 import './index.scss';
 
-document.write('hello webpack 456789')
+document.write('shan tong   567uiop')

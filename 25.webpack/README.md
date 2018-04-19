@@ -184,3 +184,75 @@ yarn add postcss-loader autoprefixer -D
 
 ## 去掉没有用到的css purifycss-webpack purify-css
 > yarn add purifycss-webpack purify-css -glob -D
+
+
+## ExtractTextPlugin 开发时关闭，打包时抽离css文件
+> style-loader 已style标签在页面顶部加入
+
+
+### 设计环境变量 跨平台
+```sh
+npm i cross-env -D 
+```
+
+### 图片的引用
+> // 图片 webpack处理图片的问题
+// 在项目中引用图片的方式
+// 1. 直接通过路径引用
+// 2. 在js中引用图片
+
+```
+file-loader url-loader 后者掉前者
+
+html-withimg-loader
+```
+
+### js 
+```sh
+npm install babel-core balel-loader babel-preset-env babel-preset-stage-0 babel-preset-react -D
+```
+### jsx
+```
+npm install react react-dom -S
+```
+
+### Doc 把自定义文件拷贝到dist文件夹下面
+```sh
+yarn add copy-webpack-plugin -D
+```
+### 全局变量 多入口文件 webpack.ProvidePlugin 会把使用到这个变量的都注入到引用的模块中
+```sh
+webpack.ProvidePlugin 不用安装
+```
+### 全局变量，暴露处理，各个模块均可使用
+> 当有模块引入jquery一次后，就暴露出去，别的模块就不用再引用了
+```sh
+yarn add expose-loader -D 
+```
+
+## 代码分割，抽离三方公共文件，optimization 
+```
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {//先抽离第三方插件
+          test:'/node_modules/',
+          chunks: 'initial',//初始化时进行打包
+          name: 'vendor',
+          proiory:10 //优先级 数越大，优先越高
+        },
+        commons:{
+          chunks:'initial',
+          name:'commons',
+          minSize:0 //只要超出0字节就生成新包
+        }
+      }
+    }
+  },
+```
+### 动态链接库 DllPlugin 
+> 写代码时 会编译打包，我们有能多的第三方包，每次编译时不用再给三方库打包
+> 先打一个基本包（三方插件）
+```
+
+```

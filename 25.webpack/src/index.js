@@ -1,5 +1,38 @@
 let str = require('./a');
-import './common.scss';
-import './index.scss';
+import './common.css';
 
-document.write('shan tong   567uiop')
+document.write('shan tong  hongkong');
+
+if(module.hot){
+  //实现热更新，默认会把所有关联文件热更新；
+  module.hot.accept();
+}
+if (__DEV__){
+  console.log('dev')
+}else{
+  console.log('pro')
+}
+
+let oImg = new Image();
+import png from './bg9.jpg';
+
+document.write('shan tong  hongkong');
+
+import React, { Component } from 'react';
+
+class index extends Component {
+  render() {
+    return (
+      <div>
+        index REACT
+      </div>
+    );
+  }
+}
+
+export default index;
+
+render(
+  <index/>,
+  document.getElementById('app')
+)

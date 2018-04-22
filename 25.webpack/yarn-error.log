@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js start
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js run build
 
 PATH: 
   C:\Program Files\ImageMagick-7.0.1-Q16;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Ruby23-x64\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\PuTTY\;C:\Users\ShanGuo\AppData\Local\Microsoft\WindowsApps;C:\Users\ShanGuo\AppData\Local\Microsoft\WindowsApps;C:\Users\ShanGuo\AppData\Roaming\npm;C:\Program Files\Microsoft VS Code\bin;C:\Users\ShanGuo\AppData\Local\Yarn\bin
@@ -21,7 +21,8 @@ npm manifest:
     "license": "MIT",
     "scripts": {
       "start": "cross-env NODE_ENV=development webpack-dev-server",
-      "build": "cross-env NODE_ENV=production webpack"
+      "build": "cross-env NODE_ENV=production webpack",
+      "vendor": "webpack --config webpack.config.vendor.js"
     },
     "devDependencies": {
       "babel-core": "^6.26.0",
@@ -33,6 +34,7 @@ npm manifest:
       "copy-webpack-plugin": "^4.5.1",
       "cross-env": "^5.1.4",
       "css-loader": "^0.28.11",
+      "expose-loader": "^0.7.5",
       "extract-text-webpack-plugin": "^4.0.0-beta.0",
       "file-loader": "^1.1.11",
       "html-webpack-plugin": "^3.2.0",
@@ -2443,6 +2445,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/expand-tilde/-/expand-tilde-2.0.2.tgz#97e801aa052df02454de46b02bf621642cdc8502"
     dependencies:
       homedir-polyfill "^1.0.1"
+  
+  expose-loader@^0.7.5:
+    version "0.7.5"
+    resolved "https://registry.yarnpkg.com/expose-loader/-/expose-loader-0.7.5.tgz#e29ea2d9aeeed3254a3faa1b35f502db9f9c3f6f"
   
   express@^4.16.2:
     version "4.16.3"
@@ -7291,7 +7297,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: C:\WINDOWS\system32\cmd.exe
-  Arguments: /d /s /c cross-env NODE_ENV=development webpack-dev-server
+  Arguments: /d /s /c cross-env NODE_ENV=production webpack
   Directory: C:\Users\ShanGuo\Workspace\P6-self-study\25.webpack
   Output:
   

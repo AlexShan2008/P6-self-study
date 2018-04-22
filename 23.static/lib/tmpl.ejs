@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/lib/style.css">
 </head>
+
 <body>
-    <% dirs.forEach(dir=>{ %>
-        <li><a href="<%= dir.path %>"><%= dir.name %> </a></li>
-    <% }) %>
+  <div class='wrapper'>
+    <h2 class="dirname">
+      <%= localPath %>
+    </h2>
+    <h6>Contain <%= filesCounts%> files or folders</h6>
+    <ul>
+      <% dirs.forEach(dir=>{ %>
+        <li class='item'>
+          <a href="<%= dir.path %>">
+            <%= dir.name %>
+          </a>
+        </li>
+        <% }) %>
+    </ul>
+    <h5><i>Server running @ <%= localurl%></i></h5>
+  </div>
 </body>
+
 </html>

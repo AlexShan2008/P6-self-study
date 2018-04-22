@@ -1,20 +1,27 @@
-let config = require('./config');
-let path = require('path');
-let fs = require('fs');
-let mime = require('mime');
-let chalk = require('chalk');
-let util = require('util');
-let url = require('url');
-let http = require('http');
+'use strict';
+
+const path = require('path');
+const fs = require('fs');
+const mime = require('mime');
+const chalk = require('chalk');
+const util = require('util');
+const url = require('url');
+const http = require('http');
+
+// let stat = util.promisify(fs.lstatSync);
 let stat = util.promisify(fs.stat);
+
 let zlib = require('zlib');
-// set NODE_ENV=static:app
-// export NODE_ENV=static:app
-// debug后面放置的是参数 可以根据后面的参数决定是否打印
 let debug = require('debug')('static:app');
 let ejs = require('ejs');
+
+let config = require('./config');
 let tmpl = fs.readFileSync(path.join(__dirname, 'tmpl.ejs'), 'utf8');
 let readdir = util.promisify(fs.readdir);
+let localPath = __dirname.slice(0, -3);
+let localurl = '';
+let filesCounts = 0;
+
 class Server {
   constructor(args) {
     this.confg = { ...config, ...args };
@@ -23,24 +30,31 @@ class Server {
   handleRequest() {
     return async (req, res) => {
       let { pathname } = url.parse(req.url, true);
-      // 不管小图标
+      
+      // ignore favicon.ico
       if (pathname === '/favicon.ico') return res.end();
       let p = path.join(this.confg.dir, '.' + pathname);
       debug(p)
+      let statObj = await stat(p);  //%E5%8C%97%E4%BA%AC
+
       try {
-        let statObj = await stat(p);
+
         if (statObj.isDirectory()) {
-          // 是目录展示目录内容
-          // 模板引擎 ejs 
-          let dirs = await readdir(p); // 读取目录的文件路径
+          // Directory
+          let dirs = await readdir(p); // read directory path
+          filesCounts = dirs.length;
+
           dirs = dirs.map(dir => ({
             path: path.join(pathname, dir),
             name: dir
-          }))
-          let content = ejs.render(this.tmpl, { dirs });
+          }));
+
+          let content = ejs.render(this.tmpl, { localPath, dirs, localurl, filesCounts });
+
           res.setHeader('Content-Type', 'text/html;charset=utf8');
           res.end(content);
         } else {
+          // File
           this.sendFile(req, res, p, statObj);
         }
       } catch (e) {
@@ -49,13 +63,13 @@ class Server {
     }
   }
   cache(req, res, statObj) {
-    // 一般是内容的一个md5 ctime-size
+    // common md5 ctime-size
     let ifNoneMatch = req.headers['if-none-match'];
-    // 文件的最新修改时间
+    // the lastest modified time
     let ifModifiedSince = req.headers['if-modified-since'];
-    // 服务器上的文件的最新修改时间
+    // server: the lastest modified time
     let since = statObj.ctime.toUTCString();
-    // 代表的是服务器文件的一个描述
+    // describe
     let etag = new Date(since).getTime() + '-' + statObj.size;
     res.setHeader('ETag', etag);
     res.setHeader('Last-Modified', since);
@@ -102,11 +116,11 @@ class Server {
   sendFile(req, res, p, statObj) {
     // 缓存的功能 对比 强制
     if (this.cache(req, res, statObj)) return;
-    // 压缩 Accept-Encoding: gzip,deflate,br
+    // complie Accept-Encoding: gzip,deflate,br
     // Content-Encoding:gzip
     res.setHeader('Content-Type', mime.getType(p) + ';charset=utf8');
     let s = this.compress(req, res, p, statObj);
-    // 范围请求 
+    // range request
     let { start, end } = this.range(req, res, p, statObj);
     let rs = fs.createReadStream(p, { start, end })
     if (s) {
@@ -123,13 +137,13 @@ class Server {
   start() {
     let { port, hostname } = this.confg;
     let server = http.createServer(this.handleRequest());
-    let url = `http://${hostname}:${chalk.green(port)}`;
+    localurl = `http://${hostname}:${port}`;
 
     console.log(`${chalk.blue('Starting up server-st success!')}`);
-    console.log(`Now you can visit ${chalk.green(url)} to view your static server`);
+    console.log(`Now you can visit ${chalk.green(localurl)} to view your static server`);
     console.log(`Hit CTRL - C to stop the server`);
 
-    debug(url);
+    debug(localurl);
     server.listen(port, hostname);
   }
 }

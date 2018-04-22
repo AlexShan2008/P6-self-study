@@ -1,0 +1,12 @@
+*{margin:0;padding:0}
+body{color:#757575;font-family: arial,sans-serif;font-size:20px;}
+.wrapper{
+  width:1200px;
+  margin:0 auto;
+}
+.dirname{font-size:28px;color:#333;margin: 25px 0}
+.item{
+  list-style: none;
+  line-height:40px;
+}
+h5{margin-top:10px;}

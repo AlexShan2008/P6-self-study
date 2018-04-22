@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack",
-    "vender": "webpack --config webpack.vendor.js"
+    "vendor": "webpack --config webpack.config.vendor.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

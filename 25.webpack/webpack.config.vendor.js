@@ -10,33 +10,28 @@ let isDev = process.NODE_ENV === 'development';
 let publicPath = isDev === 'development' ? 'http://localhost:8080/' : '/';//CDN代码网站
 
 module.exports = {
-  // 多入口文件; ['./src/index.js', './src/a.js'] 输入一个bundle.js
-  // 多页面开发;{ index: './src/index.js', a: './src/a.js' } 打包多个文件名 filename: '[name].[hash:8].js',//4位hash值
   entry: {
-    // index: './src/index.js',
-    // a: './src/a.js',
-    vender:['react','react-dom'] //打包第三方插件 
+    vender: ['react', 'react-dom'] //打包第三方插件 
   },
   output: {
     filename: '[name].[hash:8].js',//8位hash值
-    // filename: 'bundle.[hash:8].js',//8位hash值
     path: path.resolve(__dirname, 'dist'), //绝对路径
-    library:'_dll_[name]',
+    library: '_dll_[name]',
     publicPath: publicPath,
   },
   optimization: {
     splitChunks: {
       cacheGroups: {
         vendor: {//先抽离第三方插件
-          test:'/node_modules/',
+          test: '/node_modules/',
           chunks: 'initial',//初始化时进行打包
           name: 'vendor',
-          priority:10 //优先级 数越大，优先越高
+          priority: 10 //优先级 数越大，优先越高
         },
-        commons:{
-          chunks:'initial',
-          name:'commons',
-          minSize:0 //只要超出0字节就生成新包
+        commons: {
+          chunks: 'initial',
+          name: 'commons',
+          minSize: 0 //只要超出0字节就生成新包
         }
       }
     }
@@ -47,48 +42,13 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: '/node_modules/',
-        include: path.resolve(__dirname,'src'),//绝对路径
+        include: path.resolve(__dirname, 'src'),//绝对路径
         loader: 'babel-loader'
       },
       {
         test: /\.html$/,
         loader: 'html-withimg-loader'
-      },
-      {
-        test: /\.(png|gif|jpg)$/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 5, //大于5自己，调用file-loader，生成图片，否则生成base64数据
-            outputPath: 'images/'
-          }
-        }]
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader'
-          }]
-        })
-      },
-      {
-        test: /jquery/,
-        use: [
-          {
-            loader: 'expose-loader',
-            options: '$'
-          }
-        ]
       }
-      // {
-      //   test:/\.(scss|sass)$/,
-      //   use:ExtractTextPlugin.extract({
-      //     use:['style-loader','css-loader','postcss-loader','sass-loader']
-      //   })
-      // }
-      // {test:/\.(scss|sass)$/,use:['style-loader','css-loader','postcss-loader','sass-loader']}
     ]
   },
   resolve: {
@@ -97,27 +57,14 @@ module.exports = {
     },
     extensions: [' ', '.js', '.json', '.css'],
     modules: ['node_modules', 'lib']//模板的引用，先去node_modules下寻找，找不到就去lib文件夹下寻找,
-    // mainFileds:['b']
   },
   //对应的插件
   plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery'//全局变量$ 代表jquery 
-    }),
-    // new cleanWebpackPlugin(['dist']),
     new webpack.DllPlugin({
-      name:'_dll_[name]',
-      path:path.resolve(__dirname,'dist', '[name].manifest.json')
+      name: '_dll_[name]',
+      path: path.resolve(__dirname, 'dist', '[name].manifest.json')
     }),
-    new CopyWebpackPlugin([{ //拷贝静态资源
-      from: '/src/doc',
-      to: 'public'
-    }]),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      // 注入全局名称
-      __DEV__: isDev
-    }),
     new ExtractTextPlugin({
       filename: 'css/index.css',
       disable: isDev
@@ -126,12 +73,12 @@ module.exports = {
       paths: Glob.sync(path.join(__dirname, 'src/*.html'))
     }),
     new webpack.DllReferencePlugin({
-      manifest:path.join(__dirname,'dist','vendor.manifest.json')
+      manifest: path.join(__dirname, 'dist', 'vendor.manifest.json')
     }),
     new htmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
-      chunks: ['vendor','index'],
+      chunks: ['vendor', 'index'],
       hash: true,//mdn文件名带md5蹉
       minify: {
         collapseWhitespace: true,//去空格
@@ -142,7 +89,7 @@ module.exports = {
       filename: 'a.html',
       template: './src/index.html',
       hash: true,//mdn文件名带md5蹉
-      chunks: ['vendor','a'],
+      chunks: ['vendor', 'a'],
       minify: {
         collapseWhitespace: true,//去空格
         removeAttributeQuotes: true//去双引号

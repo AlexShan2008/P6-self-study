@@ -29,8 +29,11 @@ class Server {
   }
   handleRequest() {
     return async (req, res) => {
+
       let { pathname } = url.parse(req.url, true);
       
+      pathname = decodeURI(pathname);
+
       // ignore favicon.ico
       if (pathname === '/favicon.ico') return res.end();
       let p = path.join(this.confg.dir, '.' + pathname);

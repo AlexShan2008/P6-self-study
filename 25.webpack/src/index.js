@@ -1,7 +1,7 @@
 let str = require('./a');
 import './common.css';
 
-document.write('shan tong  hongkong');
+alert(0)
 
 if(module.hot){
   //实现热更新，默认会把所有关联文件热更新；
@@ -33,6 +33,6 @@ class index extends Component {
 export default index;
 
 render(
-  <index/>,
+  <index />,
   document.getElementById('app')
 )

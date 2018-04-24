@@ -140,16 +140,16 @@ module.exports = {
         removeAttributeQuotes: true//去双引号
       }
     }),
-    new htmlWebpackPlugin({
-      filename: 'a.html',
-      template: './src/index.html',
-      hash: true,//mdn文件名带md5蹉
-      chunks: ['vendor', 'a'],
-      minify: {
-        collapseWhitespace: true,//去空格
-        removeAttributeQuotes: true//去双引号
-      }
-    })
+    // new htmlWebpackPlugin({
+    //   filename: 'a.html',
+    //   template: './src/index.html',
+    //   hash: true,//mdn文件名带md5蹉
+    //   chunks: ['vendor', 'a'],
+    //   minify: {
+    //     collapseWhitespace: true,//去空格
+    //     removeAttributeQuotes: true//去双引号
+    //   }
+    // })
   ],
   //开发服务器的配置,启动静态服务器
   devServer: {

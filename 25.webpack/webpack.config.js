@@ -13,30 +13,29 @@ module.exports = {
   // 多入口文件; ['./src/index.js', './src/a.js'] 输入一个bundle.js
   // 多页面开发;{ index: './src/index.js', a: './src/a.js' } 打包多个文件名 filename: '[name].[hash:8].js',//4位hash值
   entry: {
-    // index: './src/index.js',
-    // a: './src/a.js',
-    vender:['react','react-dom'] //打包第三方插件 
+    index: './src/index.js',
+    a: './src/a.js',
   },
   output: {
     filename: '[name].[hash:8].js',//8位hash值
     // filename: 'bundle.[hash:8].js',//8位hash值
     path: path.resolve(__dirname, 'dist'), //绝对路径
-    library:'_dll_[name]',
+    library: '_dll_[name]',
     publicPath: publicPath,
   },
   optimization: {
     splitChunks: {
       cacheGroups: {
         vendor: {//先抽离第三方插件
-          test:'/node_modules/',
+          test: '/node_modules/',
           chunks: 'initial',//初始化时进行打包
           name: 'vendor',
-          priority:10 //优先级 数越大，优先越高
+          priority: 10 //优先级 数越大，优先越高
         },
-        commons:{
-          chunks:'initial',
-          name:'commons',
-          minSize:0 //只要超出0字节就生成新包
+        commons: {
+          chunks: 'initial',
+          name: 'commons',
+          minSize: 0 //只要超出0字节就生成新包
         }
       }
     }
@@ -47,7 +46,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: '/node_modules/',
-        include: path.resolve(__dirname,'src'),//绝对路径
+        include: path.resolve(__dirname, 'src'),//绝对路径
         loader: 'babel-loader'
       },
       {
@@ -102,15 +101,18 @@ module.exports = {
   //对应的插件
   plugins: [
     new webpack.ProvidePlugin({
-      $: 'jquery'//全局变量$ 代表jquery 
+      $: 'jquery'//全局变量$ 代表jquery
     }),
     // new cleanWebpackPlugin(['dist']),
     new webpack.DllPlugin({
-      name:'_dll_[name]',
-      path:path.resolve(__dirname,'dist', '[name].manifest.json')
+      // DllPlugin
+      // 动态链接库 写代码时 会编译打包 我们有很多的第三方包
+      // 先打好包
+      name: '_dll_[name]',
+      path: path.resolve(__dirname, 'dist', '[name].manifest.json')
     }),
     new CopyWebpackPlugin([{ //拷贝静态资源
-      from: '/src/doc',
+      from: './src/doc',
       to: 'public'
     }]),
     new webpack.HotModuleReplacementPlugin(),
@@ -126,12 +128,12 @@ module.exports = {
       paths: Glob.sync(path.join(__dirname, 'src/*.html'))
     }),
     new webpack.DllReferencePlugin({
-      manifest:path.join(__dirname,'dist','vendor.manifest.json')
+      manifest: path.join(__dirname, 'dist', 'vendor.manifest.json')
     }),
     new htmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
-      chunks: ['vendor','index'],
+      chunks: ['vendor', 'index'],
       hash: true,//mdn文件名带md5蹉
       minify: {
         collapseWhitespace: true,//去空格
@@ -142,7 +144,7 @@ module.exports = {
       filename: 'a.html',
       template: './src/index.html',
       hash: true,//mdn文件名带md5蹉
-      chunks: ['vendor','a'],
+      chunks: ['vendor', 'a'],
       minify: {
         collapseWhitespace: true,//去空格
         removeAttributeQuotes: true//去双引号

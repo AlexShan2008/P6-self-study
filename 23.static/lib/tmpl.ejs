@@ -6,7 +6,38 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Page Title</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/lib/style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      color: #757575;
+      font-family: arial, sans-serif;
+      font-size: 20px;
+    }
+
+    .wrapper {
+      width: 1200px;
+      margin: 0 auto;
+    }
+
+    .dirname {
+      font-size: 28px;
+      color: #333;
+      margin: 25px 0
+    }
+
+    .item {
+      list-style: none;
+      line-height: 40px;
+    }
+
+    h5 {
+      margin-top: 10px;
+    }
+  </style>
 </head>
 
 <body>
@@ -14,7 +45,8 @@
     <h2 class="dirname">
       <%= localPath %>
     </h2>
-    <h6>Contain <%= filesCounts%> files or folders</h6>
+    <h6>Contain
+      <%= filesCounts%> files or folders</h6>
     <ul>
       <% dirs.forEach(dir=>{ %>
         <li class='item'>
@@ -24,7 +56,11 @@
         </li>
         <% }) %>
     </ul>
-    <h5><i>Server running @ <%= localurl%></i></h5>
+    <h5>
+      <i>Server running @
+        <%= localurl%>
+      </i>
+    </h5>
   </div>
 </body>
 

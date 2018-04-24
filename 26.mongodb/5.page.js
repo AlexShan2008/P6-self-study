@@ -9,5 +9,5 @@ var pageNumber = 2;
 var skipNum = (pageNumber - 1) * pageSize;//跳过多少条数据
 var limitSize = pageSize;//每页显示条数
 
-// 倒序
+// 按年龄倒序
 db.students.find().sort({ age: -1 }).skip(skipNum).limit(limitSize);

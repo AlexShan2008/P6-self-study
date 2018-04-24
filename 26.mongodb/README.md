@@ -48,10 +48,15 @@ db.students.find({age:{$gt:20,$lt:50 }}); //年龄20-50区间不包括20和50
 db.students.find({age:{$gte:20,$lte:50 }}); //年龄20-50区间包括20和50
 db.students.find({age:{$not: {$gt:20,$lt:50 }}}); //年龄不在20和50区间的
 
-$all $in $nin $not
+$all $or 
+$in $nin $not
 $gt $lt $gte $lte
 
-$where:"this.age> 20 && this.age<50"
+$where:"this.age> 20 && this.age<50"  //万能查询
+
+db.students.find({name:/z.*2/}) //正则匹配，关键字查询
+
+db.students.find()
 
 ```
 ## 3.2 

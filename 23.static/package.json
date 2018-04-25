@@ -1,6 +1,6 @@
 {
   "name": "server-st",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "./lib/server-st.js",
   "license": "MIT",
   "author": {
@@ -19,5 +19,15 @@
     "supervisor": "^0.12.0",
     "yargs": "^11.0.0"
   },
-  "description": "A simple command-line static server"
+  "description": "A simple command-line static server",
+  "homepage": "https://github.com/AlexShan2008/server-st",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/AlexShan2008/server-st"
+  },
+  "keywords": [
+    "static server",
+    "cli",
+    "command"
+  ]
 }

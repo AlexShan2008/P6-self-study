@@ -31,7 +31,7 @@ class Server {
     return async (req, res) => {
 
       let { pathname } = url.parse(req.url, true);
-      
+
       pathname = decodeURI(pathname);
 
       // ignore favicon.ico

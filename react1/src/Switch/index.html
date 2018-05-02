@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./index.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <input class="js-switch switch" type="checkbox">
+    <p class='js-text'>关</p> -->
+  </div>
+  <script>
+    // 1. 实现基类：将字符串进行封装，字符串不能绑定事件
+    // 2. 实现组件：将字符串变成dom元素；
+    // 3. 提取公用的类，如果想渲染dom，可以通过setState改变状态，重新渲染
+    // 4. 模拟实现了render方法
+    class Component {
+      createDOMFromString(str) {
+        let oDiv = document.createElement('div');
+        oDiv.innerHTML = str;
+        return oDiv.firstElementChild;
+      }
+      setState(newState) {
+        Object.assign(this.state, newState);
+        // this.state = {...this.state,...{turn:!this.state.turn}};
+        let oldEl = this.el;
+        let newEl = this._render();//渲染最新的元素
+        oldEl.parentNode.replaceChild(newEl, oldEl);//用新元素替换老元素
+      }
+      _render() {
+        // this 指向新的component
+        this.el = this.createDOMFromString(this.render());
+        this.el.firstElementChild.addEventListener('change', this.Change.bind(this), false);
+        return this.el;
+      }
+      mount(container) {
+        // 将元素添加到页面上
+        container.appendChild(this._render());
+      }
+    }
+    class Switch extends Component {
+      constructor() {
+        super();
+        // 私有
+        this.state = {
+          turn: false
+        }
+      }
+      Change() {
+        // this指向实例
+        setTimeout(() => {
+          this.setState({
+            turn: !this.state.turn
+          });
+        }, 300);
+      }
+      render() {
+        return (`
+        <div>
+            <input class="switch" type="checkbox"
+            ${this.state.turn ? 'checked' : ''}>
+            <p>${this.state.turn ? '开' : '关'}</p>
+        </div>
+         `)
+      }
+    }
+
+    let app = document.querySelector('#app');
+
+    let render = (ele, container) => {
+      ele.mount(container);
+    };
+    render(new Switch(), app);
+
+  </script>
+</body>
+
+</html>

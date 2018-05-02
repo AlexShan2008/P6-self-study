@@ -1,0 +1,34 @@
+.switch {
+  -webkit-appearance: none;
+  width: 60px;
+  height: 32px;
+  border: 1px solid #999;
+  border-radius: 30px;
+  position: relative;
+  outline: none;
+  box-shadow: #f1f1f1 0 0 16px 16px inset;
+  transition: all .3s ease;
+}
+
+.switch:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 30px;
+  height: 29px;
+  border-radius: 50%;
+  background: #fff;
+  transition: all .2s ease;
+  box-shadow: 1px 1px 2px 0 #dfdfdf; 
+}
+
+.switch:checked::before {
+  left: 27px;
+  transition: all .2s ease;
+}
+
+.switch:checked {
+  box-shadow: greenyellow 0 0 16px 16px inset;
+  border: 1px solid greenyellow;
+  transition: all .3s ease;
+}

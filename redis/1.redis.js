@@ -19,4 +19,4 @@ client.hkeys('p1', function (err, keys) {
       console.log(key,value)
     })
   })
-})
+});

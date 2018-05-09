@@ -16,11 +16,11 @@
 > 服务器 （如何解决session？集中存储session，保证不同服务器共有一个会话）
 Redis(一个数据库，要求1.读写超级快；2.可靠)     
      nginx 
-
 应用服务器集群
 
 ## 1.1 安装`redis`
 [Windows下载地址：](https://github.com/ServiceStack/redis-windows/raw/master/downloads/redis-latest.zip)
+Redis Desktop
 ## 1.2 启动`redis`
 ```
 //启动server
@@ -32,10 +32,10 @@ redis-cli -h 127.0.0.1 -p 6379
 config get port 
 
 ```
-## 常用命令及存储的数据类型
-## 建议命令用英文大写
+## 1.3 常用命令及存储的数据类型
+> 建议命令用英文大写
 
-### 1. 键值对
+### 1.3.1 键值对
 ```
 set age 1
 get age
@@ -55,7 +55,7 @@ set name 1
 type name  // string 获取key的属性类型 
 ```
 
-### 2. 哈希值
+### 1.3.2. 哈希值
 ```
 hset user name zfpx  //hash set key name zfpx
 hset user age 9      //hash set key age 9
@@ -70,7 +70,7 @@ hdel user name //del user name
 hkeys user //拿到所有属性 -》再通过所有属性活动对应的value
 ```
 
-### 3. 列表List
+### 1.3.3. 列表List
 > 查询和读取很慢，需要遍历才能找到索引和值
 > 插入和删除很快，只需改变指针即可
 ```
@@ -91,7 +91,7 @@ LREM  myid 2 1 //删除2个值为1的元素，从左向右查找
 LREM  myid -2 1 //从右往左删，删除2个值为1
 ```
 
-### 3. 集合 Set
+### 1.3.4. 集合 Set
 无重复项
 > 标签云
 ```
@@ -104,6 +104,33 @@ SCARD tags //长度
 
 SREM tags 2 // 删除 值为2的tags
 
+SADD A 1 2 3
+SADD B 2 3 4
 
+SINTER A B // 2 3 交集
+SDIF A B //差集 A - B 剩下的
+SDIF B A //差集 B - A 剩下的 和上面的不同
+
+SUNION A B // 并集，求A B 的所有
+
+```
+
+### 1.3.4 有序集合
+> 学生及分数
+```
+ZADD  stus 60 zhan //
+ZADD  stus 80 li //
+ZADD  stus 80 wang //
+
+ZRANGE stus 0 -1 //按分数升序返回学生名单
+ZRANGE stus 0 -1 WITHSCORES //同时返回分数
+
+ZREM stus li //删除li同学的分数及项 
+```
+
+## Node中使用
+
+```
+cnpm i redis -S
 ```
 
